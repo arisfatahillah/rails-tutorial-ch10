@@ -1,8 +1,13 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.12'
-gem 'bootstrap-sass', '2.3.0.0'
+gem 'bootstrap-sass', '2.3.0.1'
 gem 'bcrypt-ruby', '3.0.1'
+gem 'faker', '1.1.2'
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
+
+
 
 
 
@@ -27,7 +32,7 @@ end
 gem 'jquery-rails', '2.2.1'
 
 group :test do
-  gem 'capybara', '1.1.2'
+  gem 'capybara', '2.0.2'
   gem 'factory_girl_rails', '4.2.1'
 
 end

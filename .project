@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>sample_app</name>
+	<name>sample_app2</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -12,7 +12,8 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.aptana.ruby.core.rubynature</nature>
+		<nature>org.radrails.rails.core.railsnature</nature>
 		<nature>com.aptana.projects.webnature</nature>
+		<nature>com.aptana.ruby.core.rubynature</nature>
 	</natures>
 </projectDescription>
