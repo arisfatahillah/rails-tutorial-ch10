@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index ,:edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index ,:edit, :update, :destroy, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
@@ -17,14 +17,14 @@ class UsersController < ApplicationController
   	@user = User.new
   end
 
-  #ini bikin gagal signup
+  
   def create
-    user = User.find_by_email(params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-      sign_in user
-      redirect_back_or user
+    @user = User.new(params[:user])
+    if @user.save
+      sign_in @user
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to @user
     else
-      flash.now[:error] = 'Invalid email/password combination'
       render 'new'
     end
   end
@@ -42,6 +42,21 @@ class UsersController < ApplicationController
     #end
   #end
 
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+
 
 
 
@@ -53,8 +68,8 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      flash[:success] = "Profile updated"
       sign_in @user
+      flash[:success] = "Profile updated"
       redirect_to @user
     else
       render 'edit'
@@ -64,7 +79,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed."
-    redirect_to users_url
+    redirect_to users_path
   end
 
     def show
